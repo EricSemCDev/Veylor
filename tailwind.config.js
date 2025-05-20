@@ -1,7 +1,7 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./veylor-frontend/src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
