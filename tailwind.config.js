@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['var(--font-inter)']
+        inter: ['var(--font-inter)', 'sans-serif'], // aqui o fallback é essencial
       },
     },
   },

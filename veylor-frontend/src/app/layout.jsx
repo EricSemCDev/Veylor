@@ -14,8 +14,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-br" className={inter.variable}>
-      <body>
+    <html lang="pt-br">
+      <body className={`${inter.variable} font-inter`}>
         {children}
       </body>
     </html>
