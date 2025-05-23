@@ -13,8 +13,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
-      <body className={`${inter.className}`}>
+    <html lang="pt-BR" className="no-touch">
+      <body className={`${inter.className}`} >
         <div className="relative min-h-screen w-full overflow-hidden">
 
           {/* Imagem de fundo */}
