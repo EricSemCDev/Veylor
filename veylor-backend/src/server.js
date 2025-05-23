@@ -1,10 +1,12 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
 import { pool } from './db/connection.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 app.use(cors());
@@ -21,8 +23,9 @@ app.get('/ping', async (req, res) => {
   }
 });
 
+app.use('/user', userRoutes);
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
-  console.log("Senha do banco carregada:", typeof process.env.DB_PASSWORD, process.env.DB_PASSWORD);
 });
