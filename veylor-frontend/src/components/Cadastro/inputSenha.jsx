@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { RiEye2Line, RiEyeCloseLine } from "react-icons/ri";
 
-export default function InputSenha({ label, placeholder, inputKey, value, onChange }) {
+export default function InputSenha({ label, placeholder, inputKey, value, onChange, onBlur, error = false, errorMessage = ""}) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -19,7 +19,8 @@ export default function InputSenha({ label, placeholder, inputKey, value, onChan
           name={inputKey}
           value={value}
           onChange={onChange}
-          className="
+          onBlur={onBlur}
+          className={`
             w-full h-12
             px-5 pr-10
             appearance-none bg-transparent outline-none 
@@ -28,7 +29,11 @@ export default function InputSenha({ label, placeholder, inputKey, value, onChan
             focus:border-[rgba(147,51,234,1)] focus:bg-[rgba(147,51,234,0.23)] focus:placeholder-transparent
             transition-all duration-200 ease-in-out
             peer
-          "
+            ${error
+              ? "border-red-500 focus:border-red-500 focus:bg-red-500/20"
+              : "border-[rgba(147,51,234,0.50)] focus:border-[rgba(147,51,234,1)] focus:bg-[rgba(147,51,234,0.23)]"
+            }
+          `}
         />
 
         {/* Ícone */}
@@ -42,6 +47,9 @@ export default function InputSenha({ label, placeholder, inputKey, value, onChan
         </span>
         </button>
       </div>
+      {error && (
+        <p className="text-sm text-red-500">{errorMessage}</p>
+      )}
     </div>
   );
 }

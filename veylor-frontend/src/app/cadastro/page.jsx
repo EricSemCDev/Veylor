@@ -1,7 +1,7 @@
 /* Depêndencias */
 import BarraProgresso from "@/components/Cadastro/componentBarraProgresso";
 import Link from 'next/link';
-import FormCadastro from "@/components/Cadastro/formCadastro";
+import CadastroWrapper from "@/components/Cadastro/cadastroWrapper";
 
 
 /* Icons */
@@ -37,22 +37,8 @@ export default function Login() {
         p-5 m-10 space-y-3
         
         ">
-          {/* Voltar a HomePage */} 
-          <Link href="/" className="inline-block w-fit">
-            <FaArrowCircleLeft
-              className="
-                text-[rgba(147,51,234,1)] text-2xl
-                hover:scale-130 hover:animate-pulse
-                transition-transform duration-300 ease-in-out
-                cursor-pointer
-              "
-            />
-          </Link>
 
-          {/* Title */} 
-          <p className="font-semibold text-3xl">Crie sua conta</p>
-
-          <FormCadastro />
+          <CadastroWrapper />
 
         </div>
 
