@@ -11,21 +11,30 @@ export default function DadosAdiconais({ form, setForm }) {
     console.log(form);  // agora sim vai pro console!
   };
   
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, type, value, files } = e.target;
 
     if (type === "file") {
       const file = files[0];
-      setForm((prev) => ({ ...prev, [name]: file }));
-      // Gera URL temporária de preview
-      if (file) {
-        const imageURL = URL.createObjectURL(file);
-        setPreview(imageURL);
-      }
+      if (!file) return;
+
+      // Gera preview
+      const imageURL = URL.createObjectURL(file);
+      setPreview(imageURL);
+
+      // Converte imagem para base64
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result;
+        setForm((prev) => ({ ...prev, [name]: base64 }));
+      };
+      reader.readAsDataURL(file);
+
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
   };
+
 
 
   return (
