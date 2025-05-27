@@ -1,15 +1,14 @@
 "use client";
+/* Dependencias */
 import { useState } from "react";
+import PropTypes from 'prop-types';
+
+/* Icons */
 import { FaFileImage, FaCheck } from "react-icons/fa6";
 
 
-export default function DadosAdiconais({ form, setForm }) {
+export default function DadosAdiconais({ form, setForm, handleSubmit }) {
   const [preview, setPreview] = useState(null);
-
-  const handleSubmit = (e) => {
-    e.preventDefault(); // 👈 isso impede o envio automático
-    console.log(form);  // agora sim vai pro console!
-  };
   
   const handleChange = async (e) => {
     const { name, type, value, files } = e.target;
@@ -152,3 +151,11 @@ export default function DadosAdiconais({ form, setForm }) {
     </form>
   );
 }
+
+DadosAdiconais.propTypes = {
+  form: PropTypes.object.isRequired,
+  setForm: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func,
+};
+
+

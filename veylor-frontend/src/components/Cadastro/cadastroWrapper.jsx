@@ -1,7 +1,6 @@
 "use client";
 
 /* Dependencias */
-import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 /* Import */
@@ -12,7 +11,7 @@ import DadosAdiconais from "./dadosAdicionais";
 /* Icons */
 import { FaArrowCircleLeft } from "react-icons/fa";
 
-export default function CadastroWrapper({ onEtapaChange }) {
+export default function CadastroWrapper() {
   const router = useRouter();
   const [etapa, setEtapa] = useState("info");
   const [form, setForm] = useState({
@@ -34,7 +33,8 @@ export default function CadastroWrapper({ onEtapaChange }) {
     }
   };
 
-  const enviarCadastro = async () => {
+  const enviarCadastro = async (e) => {
+    e.preventDefault();
     try {
       const payload = {
         email: form.email,
@@ -44,7 +44,7 @@ export default function CadastroWrapper({ onEtapaChange }) {
         foto: form.foto // já em base64
       };
 
-      const response = await fetch("http://localhost:3001/usuarios", {
+      const response = await fetch("http://localhost:3001/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -85,7 +85,7 @@ export default function CadastroWrapper({ onEtapaChange }) {
       )}
 
       {etapa === "final" && (
-        <DadosAdiconais form={form} setForm={setForm} onVerificado={enviarCadastro} />
+        <DadosAdiconais form={form} setForm={setForm} handleSubmit={enviarCadastro} />
       )}
 
       {etapa === "sucesso" && (

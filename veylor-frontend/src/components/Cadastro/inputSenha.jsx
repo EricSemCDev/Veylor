@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import PropTypes from 'prop-types';
 import { RiEye2Line, RiEyeCloseLine } from "react-icons/ri";
 
 export default function InputSenha({ label, placeholder, inputKey, value, onChange, onBlur, error = false, errorMessage = ""}) {
@@ -53,3 +54,14 @@ export default function InputSenha({ label, placeholder, inputKey, value, onChan
     </div>
   );
 }
+
+InputSenha.propTypes = {
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  inputKey: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string
+};
