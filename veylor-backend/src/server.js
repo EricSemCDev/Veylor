@@ -7,10 +7,12 @@ dotenv.config();
 
 import { pool } from './db/connection.js';
 import userRoutes from './routes/userRoutes.js';
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.resolve(__dirname, 'uploads')));
 
 // Teste de conexão com banco
 app.get('/ping', async (req, res) => {
