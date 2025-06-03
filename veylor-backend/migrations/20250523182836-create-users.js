@@ -27,7 +27,7 @@ export async function up(queryInterface, Sequelize) {
       unique: true
     },
     foto: {
-      type: Sequelize.BLOB, // imagem binária
+      type: Sequelize.STRING,
       allowNull: true
     },
     createdAt: {

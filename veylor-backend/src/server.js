@@ -7,24 +7,17 @@ dotenv.config();
 
 import { pool } from './db/connection.js';
 import userRoutes from './routes/userRoutes.js';
-const path = require('path');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.resolve(__dirname, 'uploads')));
 
-// Teste de conexão com banco
-app.get('/ping', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT NOW()');
-    res.json({ status: 'Conectado ao banco!', hora: result.rows[0].now });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Erro ao conectar com o banco' });
-  }
-});
-
+app.use('/upload', express.static(path.resolve(__dirname, '../uploads')));
 app.use('/user', userRoutes);
 
 const PORT = process.env.PORT || 3001;

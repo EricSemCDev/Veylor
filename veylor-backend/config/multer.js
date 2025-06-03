@@ -1,13 +1,18 @@
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-// Middleware de armazenamento
+// Em ESM, precisamos simular o __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const tipo = req.params.tipo || 'geral';
-    const userId = req.params.userId || 'temp'; // se não tem ID, salva em 'temp'
-    const dir = path.resolve(__dirname, '..', 'uploads', tipo, `user_${userId}`);
+    const userId = req.params.userId || 'temp';
+    const dir = path.resolve(__dirname, '../uploads', tipo, userId);
 
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
@@ -23,4 +28,4 @@ const storage = multer.diskStorage({
   }
 });
 
-module.exports = multer({ storage });
+export default multer({ storage });

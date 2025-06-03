@@ -7,28 +7,23 @@ import PropTypes from 'prop-types';
 import { FaFileImage, FaCheck } from "react-icons/fa6";
 
 
-export default function DadosAdiconais({ form, setForm, handleSubmit }) {
+export default function DadosAdiconais({ form, setForm, handleSubmit, setImagemSelecionada }) {
   const [preview, setPreview] = useState(null);
   
-  const handleChange = async (e) => {
+  /* Função para alterar os valores do inputs */
+  const handleChange = (e) => {
     const { name, type, value, files } = e.target;
 
     if (type === "file") {
       const file = files[0];
       if (!file) return;
 
-      // Gera preview
       const imageURL = URL.createObjectURL(file);
       setPreview(imageURL);
+      setImagemSelecionada(file); // Aqui salvamos o arquivo para ser enviado depois
 
-      // Converte imagem para base64
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64 = reader.result;
-        setForm((prev) => ({ ...prev, [name]: base64 }));
-      };
-      reader.readAsDataURL(file);
-
+      // Opcional: só pra mostrar que tem imagem no formulário
+      setForm((prev) => ({ ...prev, [name]: imageURL }));
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
     }

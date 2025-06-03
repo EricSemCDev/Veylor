@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import CadastroWrapper from "@/components/Cadastro/cadastroWrapper";
 
-export default function Login() {
+export default function Cadastro() {
 
   return (
     <main className="flex w-full h-full">

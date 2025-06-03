@@ -6,7 +6,7 @@ import { useState } from "react";
 import PropTypes from 'prop-types';
 
 /* Imports */
-import InputSenha from "@/components/Cadastro/inputSenha";
+import InputSenha from "@/components/Gerais/inputSenha";
 import useValidaEmail from "@/hooks/useValidaEmail";
 
 export default function FormCadastro({ form, setForm, onAvancar}) {

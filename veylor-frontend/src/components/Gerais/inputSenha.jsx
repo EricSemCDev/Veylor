@@ -1,7 +1,9 @@
 "use client";
-
+/* Dependencias */
 import { useState } from "react";
 import PropTypes from 'prop-types';
+
+/* Icons */
 import { RiEye2Line, RiEyeCloseLine } from "react-icons/ri";
 
 export default function InputSenha({ label, placeholder, inputKey, value, onChange, onBlur, error = false, errorMessage = ""}) {
@@ -41,13 +43,14 @@ export default function InputSenha({ label, placeholder, inputKey, value, onChan
         <button
         type="button"
         onClick={() => setShowPassword(!showPassword)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-400 hover:text-purple-200 transition-transform duration-300"
+        className="absolute right-3 top-3/5 -translate-y-1/2 text-purple-400 hover:text-purple-200 transition-transform duration-300"
         >
         <span className="inline-block transition-transform duration-200 ease-in-out transform hover:scale-110">
             {showPassword ? <RiEyeCloseLine key="close" size={22} /> : <RiEye2Line key="open" size={22} />}
         </span>
         </button>
       </div>
+      {/* Mensagem de erro se o campo estiver incorreto */}
       {error && (
         <p className="text-sm text-red-500">{errorMessage}</p>
       )}

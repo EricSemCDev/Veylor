@@ -25,7 +25,7 @@ export default (sequelize, DataTypes) => {
       unique: true,
     },
     foto: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       allowNull: true,
     },
   }, {

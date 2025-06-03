@@ -1,6 +1,9 @@
 import '@/styles/globals.css';
 
 import { Inter } from 'next/font/google';
+import clsx from 'clsx';
+import { AuthProvider } from "@/context/authContext";
+import 'leaflet/dist/leaflet.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -14,9 +17,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR" className="no-touch"> 
-      <body className={`${inter.className}`}>
-        {children}
+    <html lang="pt-BR" className={clsx('no-touch', inter.className)}>
+      <body>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

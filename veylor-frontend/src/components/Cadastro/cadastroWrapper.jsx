@@ -20,9 +20,11 @@ export default function CadastroWrapper() {
     confirmarSenha: "",
     username: "",
     nomeCompleto: "",
-    foto: "" // base64
+    foto: ""
   });
+  const [imagemSelecionada, setImagemSelecionada] = useState(null);
 
+  /* Função para alterar etapa */
   const voltar = () => {
     if (etapa === "info") {
       router.push("/"); // voltar pra home
@@ -33,38 +35,57 @@ export default function CadastroWrapper() {
     }
   };
 
+  /* Função para Finalizar cadastro */
   const enviarCadastro = async (e) => {
+    /* Evita que o form aja de forma natural, apenas fazendo o submit */
     e.preventDefault();
     try {
-      const payload = {
-        email: form.email,
-        senha: form.senha,
-        nomeCompleto: form.nomeCompleto,
-        username: form.username,
-        foto: form.foto // já em base64
-      };
+        /* Fetch para enviar pro back e após validado para o banco */
+        const res = await fetch("http://localhost:3001/user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nomeCompleto: form.nomeCompleto,
+            email: form.email,
+            senha: form.senha,
+            username: form.username
+          })
+        });
 
-      const response = await fetch("http://localhost:3001/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
+      if (!res.ok) throw new Error("Erro ao cadastrar usuário");
 
-      if (!response.ok) throw new Error("Erro ao cadastrar usuário");
+      const user = await res.json(); // Captura o ID
+      const userId = user.id;
 
-      const data = await response.json();
-      console.log("✅ Usuário criado com sucesso:", data);
-      setEtapa("sucesso");
+      // Agora envia a imagem
+      if (imagemSelecionada) {
+        const formData = new FormData();
+        formData.append("imagem", imagemSelecionada);
+
+        const imgRes = await fetch(`http://localhost:3001/user/upload/perfil/${userId}`, {
+          method: "POST",
+          body: formData
+        });
+
+        if (!imgRes.ok) {
+          const erro = await imgRes.text();
+          console.error("Erro ao enviar imagem:", erro);
+          throw new Error("Falha no upload da imagem");
+        }
+      }
+
+      router.push("/login");
+
     } catch (err) {
+
       console.error("❌ Erro ao enviar cadastro:", err);
+
     }
   };
 
   return (
     <>
-      {/* Voltar a HomePage */}
+      {/* Botão para voltar etapa */}
       <button onClick={voltar} className="inline-block w-fit">
         <FaArrowCircleLeft
           className="
@@ -76,16 +97,17 @@ export default function CadastroWrapper() {
         />
       </button>
 
+      {/* Etapa 1 - Dados de Login */}
       {etapa === "info" && (
         <FormCadastro form={form} setForm={setForm} onAvancar={() => setEtapa("auth")} />
       )}
-
+      {/* Etapa 1 - Autenticação */}
       {etapa === "auth" && (
         <Autenticao email={form.email} onVerificado={() => setEtapa("final")} />
       )}
-
+      {/* Etapa 1 - Dados Adicionais do usuário */}
       {etapa === "final" && (
-        <DadosAdiconais form={form} setForm={setForm} handleSubmit={enviarCadastro} />
+        <DadosAdiconais form={form} setForm={setForm} handleSubmit={enviarCadastro} setImagemSelecionada={setImagemSelecionada} />
       )}
 
       {etapa === "sucesso" && (
