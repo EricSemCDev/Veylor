@@ -35,14 +35,14 @@ export default function DadosAdiconais({ form, setForm, handleSubmit, setImagemS
     <form onSubmit={handleSubmit} className="flex flex-col space-y-3">
       <div className="flex justify-between items-center">
         {/* Title */} 
-        <p className="font-semibold text-3xl">Informações Adicionais</p>
+        <p className="font-semibold text-3xl select-none">Informações Adicionais</p>
 
         {/* Preview */}
         {preview && (
           <img
             src={preview}
             alt="Preview da imagem"
-            className="w-25 h-25 right-135 top-12 absolute object-cover rounded-full border-3 border-[rgba(147,51,234,0.5)]"
+            className="w-25 h-25 right-135 top-12 absolute object-cover rounded-full border-3 border-[rgba(147,51,234,0.5)] select-none pointer-events-none"
           />
         )}
       </div>
@@ -51,7 +51,7 @@ export default function DadosAdiconais({ form, setForm, handleSubmit, setImagemS
         <div className="w-full max-w-[350px] space-y-1">
           {/* Title */} 
           <div className="flex justify-between">
-            <p className="text-sm font-extralight">Nome de Usuário</p>
+            <p className="text-sm font-extralight select-none">Nome de Usuário</p>
           </div>
           {/* Input */} 
           <input type="text" name="username" value={form.username || ""} onChange={handleChange} placeholder="Digite seu nome de Usuário" 
@@ -72,7 +72,7 @@ export default function DadosAdiconais({ form, setForm, handleSubmit, setImagemS
         <div className="w-full max-w-[350px] space-y-1">
           {/* Title */} 
           <div className="flex justify-between">
-            <p className="text-sm font-extralight">Nome Completo</p>
+            <p className="text-sm font-extralight select-none">Nome Completo</p>
           </div>
           {/* Input */} 
           <input type="text" name="nomeCompleto" value={form.nomeCompleto || ""} onChange={handleChange} placeholder="Digite seu Nome Completo" 
@@ -91,7 +91,7 @@ export default function DadosAdiconais({ form, setForm, handleSubmit, setImagemS
 
         {/* Container Foto */} 
         <div className="w-full max-w-[350px] space-y-1">
-          <p className="text-sm font-extralight">Foto de Perfil</p>
+          <p className="text-sm font-extralight select-none">Foto de Perfil</p>
 
           <label
             htmlFor="foto"
@@ -106,12 +106,12 @@ export default function DadosAdiconais({ form, setForm, handleSubmit, setImagemS
               {form.foto ? (
                 <>
                   <FaCheck className="text-[rgba(147,51,234,1)] animate-pop-in" />
-                  Imagem Selecionada
+                  <p className="select-none">Imagem Selecionada</p>
                 </>
               ) : (
                 <>
                   <FaFileImage className="text-[rgba(147,51,234,1)] text-xl" />
-                  Adicione uma Imagem de Perfil
+                  <p className="select-none">Adicione uma Imagem de Perfil</p>
                 </>
               )}
             </span>
@@ -140,6 +140,7 @@ export default function DadosAdiconais({ form, setForm, handleSubmit, setImagemS
             cursor-pointer
             hover:bg-purple-700 hover:scale-102
             transition-all transform duration-100 ease-in-out
+            select-none
             ">
             Finalizar Cadastro
         </button>

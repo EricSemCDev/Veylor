@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR" className={clsx('no-touch', inter.className)}>
+    <html lang="pt-BR" className="no-touch font-inter">
       <body>
         <AuthProvider>
           {children}

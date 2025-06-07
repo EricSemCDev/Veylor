@@ -1,34 +1,48 @@
 "use client";
 
 import dynamic from "next/dynamic";
-
 const MapaMundi = dynamic(() => import("@/components/painel/mapaMundi/MapaMundi"), {
   ssr: false, // 👈 ESSENCIAL para não dar erro de 'window is not defined'
 });
 
 /* Dependencias */
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useRef, useEffect } from "react";
 
 /* Imports */
-import { useAuth } from "@/context/authContext";
+import SideBar from "./sideBar";
+import BotaoPerfil from '@/components/Gerais/botãoPerfil';
+import DadoD20 from "../Gerais/dado";
 
 export default function PainelWrapper({}) {
-  const { login, usuario } = useAuth();
-  const router = useRouter();
+  const [funcaoAtual, setFuncaoAtual] = useState("home");
+  const [role, setRole] = useState("mestre");
 
   return (
     <section className="
+    relative
     w-full h-full
     flex  
     ">
-      <div className="w-20 bg-black rounded-bl-[20px] rounded-tl-[20px]">
-        a
+      <SideBar setFuncaoAtual={setFuncaoAtual}/>
+
+      <BotaoPerfil role={role} setRole={setRole}/>
+
+      <div className="absolute w-full h-full">
+        <DadoD20 valor={20}/>
       </div>
-      <div className="w-full h-full">
+
+      {funcaoAtual === "home" && (
+        <div className="flex-1">HOME PAGE</div>
+      )}
+      {funcaoAtual === "regras" && (
+        <p>LIVRO DE REGRAS</p>
+      )}
+      {funcaoAtual === "mapa" && (
+      <div className="flex-1 select-none shadow-inner-custom">
         <MapaMundi imagemURL="http://localhost:3001/upload/geral/mapaMundi/mapaMundi.jpg"/>
-      </div> 
+      </div>
+      )}
+      
     </section>
   );
 }

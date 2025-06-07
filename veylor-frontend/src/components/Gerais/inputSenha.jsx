@@ -12,7 +12,7 @@ export default function InputSenha({ label, placeholder, inputKey, value, onChan
   return (
     <div className="w-full max-w-[350px] space-y-1 relative">
       {/* Title */}
-      <p className="text-sm font-extralight text-white">{label}</p>
+      <p className="text-sm font-extralight text-white select-none">{label}</p>
 
       {/* Input container */}
       <div className="relative">
@@ -52,7 +52,7 @@ export default function InputSenha({ label, placeholder, inputKey, value, onChan
       </div>
       {/* Mensagem de erro se o campo estiver incorreto */}
       {error && (
-        <p className="text-sm text-red-500">{errorMessage}</p>
+        <p className="text-sm text-red-500 select-none">{errorMessage}</p>
       )}
     </div>
   );

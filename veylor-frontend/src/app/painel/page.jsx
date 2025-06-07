@@ -2,6 +2,7 @@
 
 import PainelWrapper from '@/components/painel/painelWrapper';
 
+
 export default function Login() {
   return (
     <main className="flex w-full h-full"> 

@@ -74,13 +74,13 @@ export default function FormLogin({}) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Title */} 
-      <p className="font-semibold text-3xl">Entre em sua Conta</p>
+      <p className="font-semibold text-3xl select-none">Entre em sua Conta</p>
 
       {/* Container Email */} 
       <div className="w-full max-w-[350px] space-y-1">
         {/* Title */} 
         <div className="flex justify-between">
-          <p className="text-sm font-extralight">Email</p>
+          <p className="text-sm font-extralight select-none">Email</p>
         </div>
         {/* Input */} 
         <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Digite seu Email" 
@@ -126,14 +126,15 @@ export default function FormLogin({}) {
           cursor-pointer
           hover:bg-purple-700 hover:scale-102
           transition-all transform duration-100 ease-in-out
+          select-none
           ">
           Faça Login
         </button>
 
         {/* Botão de redirecionamento para o login */}
-        <div className="w-full max-w-[350px] mt-1 flex space-x-1 text-[14px] flex justify-end">
+        <div className="w-full max-w-[350px] mt-1 flex space-x-1.5 text-[14px] flex justify-end select-none">
           <p>Não tem uma conta?</p>
-          <Link href={"/cadastro"} className="text-[rgba(147,51,234,1)] hover:scale-110 hover:font-bold transition-all transform duration-50 ease-in-out">Registrar</Link>
+          <Link href={"/cadastro"} className="inline-block font-bold text-[rgba(147,51,234,1)] transition-transform transform hover:scale-110">Registrar</Link>
         </div>
       </div>
       

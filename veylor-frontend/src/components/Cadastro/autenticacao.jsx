@@ -27,7 +27,7 @@ export default function Autenticao({ email, onVerificado }) {
   return (
     <form onSubmit={onVerificado} className="flex flex-col">
         {/* Title */} 
-        <p className="font-semibold text-3xl">Autenticação</p>
+        <p className="font-semibold text-3xl select-none">Autenticação</p>
         <div className="flex space-x-3 justify-center mt-5">
             {Array(4).fill(0).map((_, i) => (
             <input
@@ -50,7 +50,7 @@ export default function Autenticao({ email, onVerificado }) {
             />
             ))}
         </div>
-        <p className="text-sm font-light mt-1">Insira o codigo de 4 digitos enviado para seu email.</p>
+        <p className="text-sm font-light mt-1 select-none">Insira o codigo de 4 digitos enviado para seu email.</p>
         {/* Botão de envio ou próximos passos */}
         <button
             type="submit"
@@ -63,6 +63,7 @@ export default function Autenticao({ email, onVerificado }) {
             cursor-pointer
             hover:bg-purple-700 hover:scale-102
             transition-all transform duration-100 ease-in-out
+            select-none
             ">
             Avançar
         </button>

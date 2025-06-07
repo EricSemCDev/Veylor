@@ -119,13 +119,13 @@ export default function FormCadastro({ form, setForm, onAvancar}) {
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       {/* Title */} 
-      <p className="font-semibold text-3xl">Crie sua conta</p>
+      <p className="font-semibold text-3xl select-none">Crie sua conta</p>
 
       {/* Container Email */} 
       <div className="w-full max-w-[350px] space-y-1">
         {/* Title */} 
         <div className="flex justify-between">
-          <p className="text-sm font-extralight">Email</p>
+          <p className="text-sm font-extralight select-none">Email</p>
         </div>
         {/* Input */} 
         <input type="email" name="email" value={email} onChange={handleChange} onBlur={handleBlur} placeholder="Digite seu Email" 
@@ -175,7 +175,7 @@ export default function FormCadastro({ form, setForm, onAvancar}) {
 
       {/* Mensagem de erro se algum campo no foi preenchido */} 
       {erroGeral && (
-        <div className="text-red-500 text-sm font-medium text-center mt-3">
+        <div className="text-red-500 text-sm font-medium text-center mt-3 select-none">
           {erroGeral}
         </div>
       )}
@@ -192,14 +192,15 @@ export default function FormCadastro({ form, setForm, onAvancar}) {
         cursor-pointer
         hover:bg-purple-700 hover:scale-102
         transition-all transform duration-100 ease-in-out
+        select-none
         ">
         Avançar
       </button>
 
       {/* Botão de redirecionamento para o login */}
-      <div className="w-full max-w-[350px] flex space-x-1 text-[14px] flex justify-end">
+      <div className="w-full max-w-[350px] flex space-x-1.5 text-[14px] flex justify-end select-none">
         <p>Já tem uma Conta?</p>
-        <Link href={"/login"} className="text-[rgba(147,51,234,1)] hover:scale-110 hover:font-bold transition-all transform duration-50 ease-in-out">Log In</Link>
+        <Link href={"/login"} className="inline-block font-bold text-[rgba(147,51,234,1)] transition-transform transform hover:scale-110">Log In</Link>
       </div>
 
     </form>

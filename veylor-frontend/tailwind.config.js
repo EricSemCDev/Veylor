@@ -5,7 +5,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        inter: ['var(--font-inter)', 'sans-serif'], // aqui o fallback é essencial
+        inter: ['var(--font-inter)'], // aqui o fallback é essencial
+      },
+      boxShadow: {
+        'inner-custom': 'inset 0px 4px 20px rgba(255, 0, 0, 0.25)',
       },
     },
   },
