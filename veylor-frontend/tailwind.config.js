@@ -13,6 +13,7 @@ module.exports = {
     },
   },
   plugins: [
+    require('tailwind-scrollbar'),
     plugin(function ({ addComponents }) {
       addComponents({
         '.inset-responsive': {
