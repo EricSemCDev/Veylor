@@ -30,7 +30,7 @@ export default function PainelWrapper({}) {
 
       <div className="absolute top-4 right-8 flex gap-8 w-fit">
         <BotaoDice setRodar={setRodar} infoRolagem={setRolagem}/>
-        <BotaoPerfil role={role} setRole={setRole}/>
+        {/* <BotaoPerfil role={role} setRole={setRole}/> */}
       </div>
 
       {rodar === true && (
