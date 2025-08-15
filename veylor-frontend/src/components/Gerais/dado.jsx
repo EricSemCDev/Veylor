@@ -370,7 +370,8 @@
       <AnimatePresence>
         {!rodando && (
           <motion.div 
-          initial={{ scaleY: 0 }}
+          initial={{ scaleY: 0
+          }}
           animate={{
             scaleY: 1,
             transition: { duration: 0.4, ease: "easeInOut" },
@@ -384,9 +385,9 @@
           className={`
             absolute z-1
             rounded-3xl border-t-1 border-b-1
-            w-full h-full max-w-80 max-h-50
+            min-w-80 max-w-[1226px]
             flex flex-col justify-center items-center  
-            space-y-2 
+            space-y-2 px-2 py-3
             ${rolagem.indicadorResultado === "sucessoCritico" ? "border-[rgba(255,144,0,0.8)]"
               : rolagem.indicadorResultado === "falhaCritica" ? "border-[rgba(234,51,51,0.8)] " 
               : "border-[rgba(255,234,0,0.8)]"}
@@ -447,7 +448,7 @@
                   {rolagem.resultado}
                 </motion.p>
 
-                <motion.p
+                <motion.p className='break-all'
                   initial={{
                     scale: 0,
                   }}

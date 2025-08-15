@@ -2,29 +2,33 @@
 import { rollQuery } from "../utils/rollDice.js";
 
 function formatQuery(rawQuery, details) {
-  // Quebra em partes originais (ex: ["1d20","3d6","1d6","6"])
+  // 1) Filtra só os lançamentos de dados (aqueles que têm .faces)
+  const diceDetails = details.filter(d => d.faces);
+
+  // 2) Quebra a expressão em partes
   const parts = rawQuery.replace(/\s+/g, "").split("+");
   let detailIdx = 0;
-  const formatted = parts.map((part) => {
+
+  const formatted = parts.map(part => {
     const m = part.match(/^(\d*)d(\d+)$/);
     if (m) {
-      // é XdY
       const count = Number(m[1]) || 1;
-      const faces = Number(m[2]);
-      // pega 'count' itens de details e monta "[v]"
-      const rolls = details
+      // 3) Pega do diceDetails, não do details inteiro
+      const rolls = diceDetails
         .slice(detailIdx, detailIdx + count)
-        .map((d) => `[${d.value}]`)
+        .map(d => `[${d.value}]`)
         .join(" ");
       detailIdx += count;
       return `${rolls} ${part}`;
     } else {
-      // constante
+      // constantes ficam sem colchetes
       return part;
     }
   });
+
   return formatted.join(" + ");
 }
+
 
 export function handleRoll(req, res) {
   const { query: rawQuery } = req.body;

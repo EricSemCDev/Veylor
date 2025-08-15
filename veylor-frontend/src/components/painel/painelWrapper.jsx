@@ -11,6 +11,7 @@ import { useState, useRef, useEffect } from "react";
 /* Imports */
 import SideBar from "./sideBar";
 import BotaoPerfil from '@/components/Gerais/botãoPerfil';
+import BotaoDiceNovo from "../Gerais/botaoDiceNovo";
 import BotaoDice from "../Gerais/botaoDice";
 import DadoD20 from "../Gerais/dado";
 
@@ -30,6 +31,7 @@ export default function PainelWrapper({}) {
 
       <div className="absolute top-4 right-8 flex gap-8 w-fit">
         <BotaoDice setRodar={setRodar} infoRolagem={setRolagem}/>
+        <BotaoDiceNovo setRodar={setRodar} infoRolagem={setRolagem}/>
         <BotaoPerfil role={role} setRole={setRole}/>
       </div>
 

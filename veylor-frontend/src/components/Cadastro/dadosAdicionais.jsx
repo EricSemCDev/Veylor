@@ -59,7 +59,7 @@ export default function DadosAdiconais({ form, setForm, handleSubmit, setImagemS
           w-full h-12
           px-5
           appearance-none bg-transparent outline-none 
-          font-light placeholder-white text-white 
+          font-light placeholder-white text-white
           rounded-[10px] border-1 border-[rgba(147,51,234,0.50)]
           focus:border-[rgba(147,51,234,1)] focus:bg-[rgba(147,51,234,0.23)] focus:placeholder-transparent
           transition-all duration-200 ease-in-out

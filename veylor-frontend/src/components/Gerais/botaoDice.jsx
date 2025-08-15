@@ -11,15 +11,51 @@ import { GiRollingDices } from "react-icons/gi";
 export default function BotaoDice({ setRodar, infoRolagem}) {
   const [ativo, setAtivo] = useState(false)
   const [dados, setDados] = useState([])
-  const [rolagem, setRolagem] = useState ({
-    resultado: "40",
-    indicadorResultado: "sucessoCritico",
-    query: "[20] 1d20 + [1] [3] [6] 3d6 + [4] 1d6 + 6",
-})
-  const [mostrarMenu, setMostrarMenu] = useState(false)
+  const [rolagem, setRolagem] = useState({
+    resultado: "",
+    indicadorResultado: "normal",
+    query: "",
+    detalhes: []
+  });
+  const [query, setQuery] = useState("1d20");
+  const [mostrarMenu, setMostrarMenu] = useState(false);
   const [menuAnimado, setMenuAnimado] = useState(false);
 
-  const handleRolar = () => setRodar(true);
+  async function handleRolar(query) { 
+    
+    try{
+      const res = await fetch("http://localhost:3001/roll/rollQuery", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ query }),
+      })
+
+      if (!res.ok) throw new Error("Falha no servidor");
+
+      const {resultado, indicadorResultado, query: formatted, detalhes} = await res.json();
+
+      console.log(indicadorResultado)
+
+      const newRolagem = {
+        resultado,
+        indicadorResultado,
+        query: formatted,
+        detalhes,
+      };
+      setRolagem(newRolagem)
+      infoRolagem(newRolagem)
+      console.log(newRolagem)
+    } catch(e){
+      console.error("Erro ao rolar dados:", e);
+    }
+    setRodar(true);
+  }
+
+  /* Função para alterar os valores do inputs */
+  const handleChange = (e) => {
+    const { value } = e.target;
+      setQuery(value);
+  };
 
   useEffect(() => {
     setDados([
@@ -29,7 +65,6 @@ export default function BotaoDice({ setRodar, infoRolagem}) {
       { id: 4, user: "Mestre", role: "mestre", rolagem: "1d20 + 1d6 + 1", resultado: 26, oculto: false },
       { id: 5, user: "Gabs", role: "jogador", rolagem: "1d20 + 1d6 + 1", resultado: 26, oculto: false },
     ]);
-    infoRolagem(rolagem)
   }, []);
 
   const handleToggle = () => {
@@ -143,21 +178,37 @@ export default function BotaoDice({ setRodar, infoRolagem}) {
                   
                   </div>
 
-                  <button onClick={handleRolar} className="
-                  w-full max-w-50
-                  flex justify-center items-center
-                  py-2 px-6 gap-x-3
-                  text-white text-lg font-semibold
-                  border-t-1 border-b-1 border-[rgba(147,51,234,0.30)] rounded-lg
-                  cursor-pointer
-                  hover:border-[rgba(147,51,234,1)] hover:scale-105
-                  transition-all duration-300 ease-in-out transform
-                  group
-                  select-none
-                  ">
-                      <GiRollingDices className="text-lg group-hover:scale-120 group-hover:drop-shadow-[0_0_3px_rgb(147,51,234)] text-[rgba(147,51,234,1)] transition-all duration-300 ease-in-out transform"/>
-                      <p className="text-sm font-light group-hover:drop-shadow-[0_0_3px_rgb(147,51,234)] transition-all duration-300 ease-in-out transform">Rolar Dados</p>
-                  </button>
+                  <div className="flex gap-1 w-full">
+                    <input type="text" name="queryRoll" value={query || ""} onChange={handleChange} placeholder="Digite sua rolagem" className="
+                    flex justify-center items-center
+                    w-full
+                    px-5
+                    appearance-none bg-transparent outline-none 
+                    font-light placeholder-white text-white text-xs
+                    rounded-lg border-t-1 border-b-1 border-[rgba(147,51,234,0.50)]
+                    focus:border-[rgba(147,51,234,1)] focus:bg-[rgba(147,51,234,0.23)] focus:placeholder-transparent
+                    transition-all duration-200 ease-in-out
+                    peer
+                    ">
+
+                    </input>
+
+                    <button onClick={() => handleRolar(query)} className="
+                    flex justify-center items-center
+                    py-2 px-2
+                    text-white text-lg font-semibold
+                    border-t-1 border-b-1 border-[rgba(147,51,234,0.50)] rounded-lg
+                    cursor-pointer
+                    hover:border-[rgba(147,51,234,1)] hover:scale-105
+                    transition-all duration-300 ease-in-out transform
+                    group
+                    select-none
+                    ">
+                        <GiRollingDices className="text-lg group-hover:scale-120 group-hover:drop-shadow-[0_0_3px_rgb(147,51,234)] text-[rgba(147,51,234,1)] transition-all duration-300 ease-in-out transform"/>
+                    </button>
+                  </div>
+
+
               </motion.div>
           )}
 
