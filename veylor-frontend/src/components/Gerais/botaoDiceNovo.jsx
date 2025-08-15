@@ -3,7 +3,8 @@
 import { use, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { useAuth } from "@/context/authContext";
+/* Imports */
+import RolagemPersonagem from "../painel/Rolagem/rolagemPersonagem";
 
 /* Icons */
 import { FaDiceD20 } from "react-icons/fa";
@@ -13,7 +14,7 @@ import { GiRollingDiceCup } from "react-icons/gi";
 
 
 export default function BotaoDice({ setRodar, infoRolagem}) {
-  const { usuario } = useAuth();
+  
   const [ativo, setAtivo] = useState(true)
   const [dados, setDados] = useState([])
   const [rolagemSalva, setRolagemSalva] = useState([])
@@ -97,7 +98,7 @@ export default function BotaoDice({ setRodar, infoRolagem}) {
     <div className="flex flex-col space-y-10 w-full h-full"> 
 
         {/* Botão de Rolagem */}
-        <button 
+        <div 
         onClick={() => { 
         // setAtivo(ativo === true ? false : true); 
         // handleToggle();
@@ -149,27 +150,7 @@ export default function BotaoDice({ setRodar, infoRolagem}) {
             </div>
             
             {/* Container de Jogador que fará a rolagem */}
-            <div className="flex flex-col justify-center items-center ml-auto bg-[rgba(147,51,234,0.30)] p-1 rounded-xl">
-              {/* Imagem */}
-              <img src={`http://localhost:3001${usuario?.foto}`} className="
-              flex items-center
-              w-full max-w-6 h-full max-h-6
-              bg-[rgba(147,51,234,0.30)] 
-              rounded-full
-              ">
-              </img>
-
-              {/* Nome do personagem */}
-              <div className="
-              flex items-center
-              px-2
-              w-full max-w-23 h-full max-h-7 
-              rounded-xl
-              ">
-                <p className="text-[10px]">Tama9n9</p>
-              </div>
-
-            </div>
+            <RolagemPersonagem/>
 
           </div>
 
@@ -353,7 +334,7 @@ export default function BotaoDice({ setRodar, infoRolagem}) {
 
           </div>
 
-        </button>
+        </div>
     </div>
   );
 }
